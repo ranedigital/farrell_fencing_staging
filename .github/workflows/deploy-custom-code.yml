@@ -1,0 +1,32 @@
+name: Deploy Custom WordPress Code
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "staging.farrellfencing.com/wp-content/themes/rane-starter/**"
+      - ".github/workflows/deploy-custom-code.yml"
+
+jobs:
+  deploy-theme:
+    name: Deploy rane-starter theme
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Deploy theme via FTP/SFTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ${{ secrets.FTP_PROTOCOL }}
+          port: ${{ secrets.FTP_PORT }}
+          local-dir: ./staging.farrellfencing.com/wp-content/themes/rane-starter/
+          server-dir: ${{ secrets.FTP_BASE_DIR }}/wp-content/themes/rane-starter/
+
+      # Add more steps like the one above for any custom plugin folders you want
+      # to auto-deploy later.
