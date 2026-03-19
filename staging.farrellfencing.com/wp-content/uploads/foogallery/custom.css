@@ -1,0 +1,9 @@
+/*
+* FooGallery Custom CSS
+* This file is created by adding custom CSS on FooGallery Settings page in wp-admin
+* Created : 26 Oct 2023, 4:14 pm
+*/
+
+.foogallery .fg-caption-title {
+font-size: 20px;
+}
